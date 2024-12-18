@@ -8,22 +8,16 @@
 
 
 
-*In the previous setup, we configured Slurm with one controller and two compute nodes. In that environment, we carried out QoS management. Before implementing this, make sure all services are functioning correctly.*
+## *In the previous setup, we configured Slurm with one controller and two compute nodes. In that environment, we carried out QoS management. Before implementing this, make sure all services are functioning correctly.*
 
 
 
 
-
-
-
-
-
-
-*In SLURM (Simple Linux Utility for Resource Management), Quality of Service (QoS) allows administrators to define policies that control the allocation of resources based on job or user characteristics. Specifically, you can set limits like MaxJobsPerUser, MaxSubmitJobsPerUser, and MaxJobsPerAccount to manage job submissions and execution limits for users or accounts.*
+#### *In SLURM (Simple Linux Utility for Resource Management), Quality of Service (QoS) allows administrators to define policies that control the allocation of resources based on job or user characteristics. Specifically, you can set limits like MaxJobsPerUser, MaxSubmitJobsPerUser, and MaxJobsPerAccount to manage job submissions and execution limits for users or accounts.*
 
 
 ## Objective
-###  - We want to configure QoS in SLURM to:
+###  We want to configure QoS in SLURM to:
   - Limit the number of jobs that a user can run concurrently (MaxJobsPerUser).
   - Limit the number of jobs a user can submit (MaxSubmitJobsPerUser).
   - Limit the number of jobs that can be submitted by an account (MaxSubmitJobsPerAccount).
@@ -56,11 +50,17 @@
 ```yml
 
 useradd rma
+
 passwd rma
+
 mkdir /home/rma
+
 chown rma:rma /home/rma/
+
 chmod 755 /home/rma/
+
 usermod -d /home/rma/ rma
+
 usermod -s /bin/bash rma
 
 
@@ -92,7 +92,7 @@ sacctmgr modify qos rmaqos set MaxJobsPerUser=2
 
 sacctmgr modify qos rmaqos set MaxSubmitJobsPerAccount=4
 
-sacctmgr modify qos rmaqos set  MaxJobsPerAccount=10:
+sacctmgr modify qos rmaqos set  MaxJobsPerAccount=10
 
 sacctmgr modify qos rmaqos set MaxSubmitJobsPerAccount
 
@@ -179,7 +179,7 @@ Mailprog=/usr/bin/mail
 
 
 
-### Step 4: Copy Slurm Configuration Files to required places and then Restart Slurm Services.
+### Step 5: Copy Slurm Configuration Files to required places and then Restart Slurm Services.
 
 
 
@@ -190,7 +190,7 @@ cp slurm.conf /etc/slurm
 cp slurm.conf /etc/slurm-llnl/
 ```
 
-### Step 4.1:Copy Slurm Configuration to Compute Nodes also:
+### Step 5.1:Copy Slurm Configuration to Compute Nodes also:
 
   - Use scp to transfer the Slurm configuration file to a compute nodes:
 
@@ -211,7 +211,7 @@ systemctl restart slurmdbd
 ```
 
 
-### Step 5: Login as rma user and Set Up Path:
+### Step 6: Login as rma user and Set Up Path:
 
   - *Like this in my case:*
 ```yml
@@ -231,7 +231,7 @@ export LD_LIBRARY_PATH="/home/dhpcsa/slurm-21.08.8/lib:$LD_LIBRARY_PATH"
 
 ```
 
-###  Verify Comutes Nodes are Idle: 
+### Step 7: Verify Computes Nodes are Idle: 
   - use this
 
 ```yml
@@ -252,7 +252,7 @@ Test up 1:00:00 2 idle compute[1-2]
 
 
 
-### Step 5: Submit a Job with sbatch:
+### Step 8: Submit a Job with sbatch:
   - Create a new script (newscript.sh) and submit it using sbatch.
 
 ```yml
@@ -279,7 +279,7 @@ done
 
 ```
 
-### Step 5.1:  Change permission and submit job:
+### Step 8.1:  Change permission and submit job:
 
 ```yml
 
@@ -323,11 +323,8 @@ squeue       # check status of job
 
 
 
+### Step 9: For verification 
 
-##  For verification 
-
-
-- sacctmgr show qos format=name,priority,MaxJobs,MaxJobsPerUser,MaxSubmitJobsPerUser,MaxJobsPerAccount,MaxSubmitJobsPerAccount:  This command displays the names, priorities, maximum jobs, maximum jobs per user, maximum job submissions per user, maximum jobs per account, and maximum job submissions per account for each QoS setting.
 
 - sacctmgr show assoc format=cluster,user,qos: Lists the associations between clusters, users, and QoS settings.
 
@@ -336,6 +333,9 @@ squeue       # check status of job
 - sacctmgr show users: Displays all users and their configurations.
 
 - sacctmgr show accounts: Displays detailed information about user accounts and their resource limits.
+
+
+- sacctmgr show qos format=name,priority,MaxJobs,MaxJobsPerUser,MaxSubmitJobsPerUser,MaxJobsPerAccount,MaxSubmitJobsPerAccount:-This command displays the names, priorities, maximum jobs, maximum jobs per user, maximum job submissions per user, maximum jobs per account, and maximum job submissions per account for each QoS setting.
 
 
 
