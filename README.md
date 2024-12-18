@@ -412,11 +412,13 @@ squeue       # check status of job
 
 ![Alt text for image](screenshots/7.png)
 
-8.
+8.We can see, Error is occurs when we exceeds the limit of job submission i.e 2 in our case-
 <br>
 <br>
 
+![Alt text for image](screenshots/8.png)
 
 
-
+<br>
+<br>
 
