@@ -279,7 +279,7 @@ done
 
 ```
 
-### Step 8.1:  Change permission and submit job:
+### Step 8:  Change permission and submit job:
 
 ```yml
 
@@ -300,24 +300,50 @@ squeue       # check status of job
 
 
 
+<br>
+<br>
+
+## Example for MaxJobs QOS
+
+### 1. Create Account and User in sacctmgr
+ - Create an account for examuser:
+
+```yml
+sacctmgr add account examuser --immediate
+```
+ ### Create the user:
+
+```yml
+sacctmgr create user examuser defaultaccount=examuser --immediate
+```
+
+### 2. Create QoS for the User
+ - Create QoS (Quality of Service) for examuser:
+
+``` yml
+sacctmgr create qos examuser
+```
+ ### Set priority for examuser:
+
+```yml
+sacctmgr modify qos examuser set priority=12
+```
+
+
+### 3.. Modify User Settings (MaxJobs)
+ - To modify the MaxJobs limit for the user examuser:
+
+```yml
+sudo sacctmgr modify user examuser set MaxJobs=2
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 4. Check QoS Settings
+ - To verify the QoS settings:
+```yml
+sacctmgr show qos format=name,priority,MaxJobs
+```
 
 
 
