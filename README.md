@@ -309,24 +309,24 @@ squeue       # check status of job
  - Create an account for examuser:
 
 ```yml
-sacctmgr add account examuser --immediate
+sacctmgr add account rma --immediate
 ```
  ### Create the user:
 
 ```yml
-sacctmgr create user examuser defaultaccount=examuser --immediate
+sacctmgr create user rma defaultaccount=examuser --immediate
 ```
 
 ### 2. Create QoS for the User
  - Create QoS (Quality of Service) for examuser:
 
 ``` yml
-sacctmgr create qos examuser
+sacctmgr create qos rmaqos
 ```
  ### Set priority for examuser:
 
 ```yml
-sacctmgr modify qos examuser set priority=12
+sacctmgr modify qos rmaqos set priority=12
 ```
 
 
@@ -334,7 +334,7 @@ sacctmgr modify qos examuser set priority=12
  - To modify the MaxJobs limit for the user examuser:
 
 ```yml
-sudo sacctmgr modify user examuser set MaxJobs=2
+sudo sacctmgr modify user rma set MaxJobs=2
 ```
 
 
